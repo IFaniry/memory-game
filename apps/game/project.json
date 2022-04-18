@@ -1,0 +1,54 @@
+{
+  "root": "apps/game",
+  "projectType": "application",
+  "sourceRoot": "apps/game/src",
+  "targets": {
+    "build": {
+      "executor": "@nx-plus/vue:browser",
+      "options": {
+        "dest": "dist/apps/game",
+        "index": "apps/game/public/index.html",
+        "main": "apps/game/src/main.ts",
+        "tsConfig": "apps/game/tsconfig.app.json"
+      },
+      "configurations": {
+        "production": {
+          "mode": "production",
+          "filenameHashing": true,
+          "productionSourceMap": true,
+          "css": {
+            "extract": true,
+            "sourceMap": false
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx-plus/vue:dev-server",
+      "options": {
+        "browserTarget": "game:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "game:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/game/**/*.{ts,tsx,vue}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/game"],
+      "options": {
+        "jestConfig": "apps/game/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
